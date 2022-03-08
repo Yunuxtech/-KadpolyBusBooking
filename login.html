@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Login | Bus Booking System</title>
+    <meta
+      name="description"
+      content="Association of Point of Sales Users Membership Registation"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link rel="icon" href="img/logo.jpg" type="image/gif" sizes="16x16" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body class="d-flex flex-column min-vh-100 bg-light">
+    <!-- Nav-->
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark text-white">
+      <div class="container">
+        <h1 class="mb-0 h5 py-1 mr-3">
+          <a class="navbar-brand" href="index.html">
+            <img
+              src="img/logo.jpg"
+              width="30"
+              height="30"
+              class="d-inline-block align-top"
+              alt=""
+            />
+            BusBookingSys</a
+          >
+        </h1>
+        <a
+          href="register.html"
+          class="btn btn-outline-light py-1 ml-auto mx-sm-0 order-0 order-sm-last"
+        >
+          Register Now
+        </a>
+        <button
+          class="navbar-toggler ml-3"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="profile.html">My Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="systemconfig.html"> System Config </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reserveSeat.html">Reserve a Seat</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="bookedSeat.html">Booked History </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- content -->
+    <div class="container flex-grow-1 flex-shrink-0 py-5">
+      <div class="mb-5 p-4 bg-white shadow-sm">
+        <p>
+          New to this website? <a href="register.html">Create an account</a>
+        </p>
+        <hr />
+        <h3>Sign in to your account</h3>
+        <form class="needs-validation m-4" novalidate>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputMailForm"
+                >Email or phone number
+                <span class="text-danger font-weight-bold">*</span></label
+              >
+              <input
+                id="inputMailForm"
+                type="text"
+                class="form-control"
+                placeholder="Enter your email or phone number"
+                required
+              />
+              <div class="invalid-feedback">
+                Please fill the email or phone number field
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputPasswordForm"
+                >Password
+                <span class="text-danger font-weight-bold">*</span></label
+              >
+              <input
+                id="inputPasswordForm"
+                type="password"
+                class="form-control"
+                placeholder="Enter your password"
+                required
+              />
+              <div class="invalid-feedback">Please fill the password field</div>
+              <button
+                type="button"
+                class="btn btn-link"
+                data-toggle="collapse"
+                data-target="#resetPassword"
+                aria-expanded="false"
+              >
+                Forgot password?
+              </button>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">Sign in</button>
+        </form>
+
+        <div class="collapse" id="resetPassword">
+          <div class="card-body">
+            <hr />
+            <h3>Reset your account password</h3>
+            <p class="text-muted">
+              Enter your email address and we will send you a password reset
+              link.
+            </p>
+            <form class="needs-validation m-4" novalidate>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputMailForm"
+                    >Email address
+                    <span class="text-danger font-weight-bold">*</span></label
+                  >
+                  <input
+                    id="inputMailForm"
+                    type="email"
+                    class="form-control"
+                    placeholder="Enter your email address"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please fill the email address field
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-primary" type="submit">
+                Send password reset link
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <footer class="p-3 mt-auto bg-white shadow">
+      <div class="container">
+        <p class="text-muted float-left">
+          <b>Supervisor</b>: Dr. Mal. Abbas Yusuf
+        </p>
+        <p class="float-right">
+          <b>Developed by</b>: Bashir Abdulwahab - KPT/CST/19/46763
+        </p>
+      </div>
+    </footer>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/custom.js"></script>
+  </body>
+</html>
