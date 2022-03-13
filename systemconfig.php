@@ -1,3 +1,8 @@
+<?php include("helper/login.php");
+include("helper/checklogin.php");
+check_login();
+error_reporting(0);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,53 +18,22 @@
 
 <body class="d-flex flex-column min-vh-100 bg-light">
     <!-- Nav-->
-    <!-- Nav 2 -->
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark text-white">
-        <div class="container">
-            <h1 class="mb-0 h5 py-1 mr-3">
-                <a class="navbar-brand" href="index.html">
-                    <img src="img/logo.jpg" width="30" height="30" class="d-inline-block align-top" alt="BusBookingSys Logo" /> BusBookingSys
-                </a>
-            </h1>
-            <a href="register.html" class="btn btn-outline-light py-1 ml-auto mx-sm-0 order-0 order-sm-last">
-          Register Now
-        </a>
-            <button class="navbar-toggler ml-3" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="profile.html">My Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="systemconfig.html">
-                System Config
-              </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="reserveSeat.html">Reserve a Seat</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="bookedSeat.html">Booked History </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact Us</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php  require_once("include/header.php"); ?>
 
     <!-- content -->
     <div class="container flex-grow-1 flex-shrink-0 py-5">
+    <?php
+        session_start();
+           if(isset($_SESSION["msg"])){
+             echo $_SESSION["msg"];
+           }
+           unset($_SESSION["msg"]);
+
+          ?>
         <div class="mb-5 p-4 bg-white shadow-sm">
             <h3>System Configuration</h3>
             <hr />
-            <form class="needs-validation m-4" novalidate>
+            <form class="needs-validation m-4" novalidate action="helper/busManage.php" method="post">
                 <div class="form-row">
                     <div class="col-md-5">
                         <h6 class="card-subtitle mb-2 text-muted">Manage BUS</h6>
@@ -67,11 +41,33 @@
                             <label for="inputMailForm">BUS name
                   <span class="text-danger font-weight-bold">*</span></label
                 >
+                <?php
+                $id = $_GET["edit"];
+                $sql = "SELECT * FROM `bus` WHERE id = $id";
+                $result = mysqli_query($conn,$sql);
+                $row = mysqli_fetch_assoc($result);
+                ?>
+                <!-- for id handling -->
+
+                <input
+                  type="hidden"
+                  class="form-control"
+                  placeholder="Enter BUS name"
+                  required
+                  name="id"
+                  value="<?php echo $row["id"]; ?>"
+
+                />
+                <!-- end -->
+               
                 <input
                   type="text"
                   class="form-control"
                   placeholder="Enter BUS name"
                   required
+                  name="busName"
+                  value="<?php echo $row["busName"]; ?>"
+
                 />
                 <div class="invalid-feedback">
                   Please fill the BUS name field
@@ -88,27 +84,49 @@
                   class="form-control"
                   placeholder="Enter BUS capacity"
                   required
+                  name="busCap"
+                  value="<?php echo $row["busCap"]; ?>"
+
                 />
                 <div class="invalid-feedback">
                   Please fill the BUS capacity field
                 </div>
               </div>
+              
 
               <div
                 class="btn-toolbar justify-content-between"
                 role="toolbar"
                 aria-label="Toolbar with button groups"
               >
+              <div class="input-group">
+                <input
+                  type="submit"
+                  class="btn btn-info"
+                  name="update"
+                  value="Update"
+
+                />
+                  
+                </div>
                 <div class="btn-group" role="group" aria-label="First group">
                   <!-- <a href="#" class="btn btn-light disabled">Back</a> -->
                 </div>
                 <div class="input-group">
-                  <button type="submit" class="btn btn-primary px-5">
+                  <!-- <button type="submit" class="btn btn-primary px-5">
                     Submit
-                  </button>
+                  </button> -->
+                  <input
+                  type="submit"
+                  class="btn btn-primary px-5"
+                  name="add"
+                  value="Submit"
+
+                />
                 </div>
               </div>
             </div>
+            
 
             <div class="col-md-7">
               <h6 class="card-subtitle mb-2 text-muted">List of BUSES</h6>
@@ -124,20 +142,33 @@
                     <th scope="col"></th>
                   </tr>
                 </thead>
+
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>MakaPolo</td>
-                    <td>100</td>
+                <?php
+              $sql = "SELECT * FROM `bus`";
+              $result = mysqli_query($conn,$sql);
+              $count = 1;
+              while($row = mysqli_fetch_assoc($result)){
+                ?>
+                <tr>
+                    <th scope="row"><?php  echo $count; ?></th>
+                    <td><?php echo $row["busName"]; ?></td>
+                    <td><?php echo $row["busCap"]; ?></td>
                     <td>
-                      <a href="#" class="btn btn-sm btn-outline-primary">
+                      <a href="./systemconfig.php?edit=<?php echo $row['id'];?>" class="btn btn-sm btn-outline-primary">
                         Edit
                       </a>
-                      <a href="#" class="btn btn-sm btn-outline-danger">
+                      <a href="helper/busManage.php?delete=<?php echo $row['id'];?>" class="btn btn-sm btn-outline-danger">
                         Delete
                       </a>
                     </td>
                   </tr>
+              <?php 
+              $count++;             
+                
+              }
+              ?>
+                  
                 </tbody>
               </table>
             </div>
@@ -146,7 +177,7 @@
 
         <hr />
 
-        <form class="needs-validation m-4" novalidate>
+        <form class="needs-validation m-4" novalidate action="helper/locationManage.php" method="post">
           <div class="form-row">
             <div class="col-md-5">
               <h6 class="card-subtitle mb-2 text-muted">Manage Location</h6>
@@ -155,11 +186,27 @@
                   >Terminal name
                   <span class="text-danger font-weight-bold">*</span></label
                 >
+                <?php
+                $id = $_GET["editbus"];
+                $sql = "SELECT * FROM `location` WHERE id = '$id'";
+                $result = mysqli_query($conn,$sql);
+                $row = mysqli_fetch_assoc($result);
+                ?>
+                <!-- id handling -->
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="id"
+                  value="<?php echo $row["id"]; ?>"
+                />
+                <!-- end -->
                 <input
                   type="text"
                   class="form-control"
                   placeholder="Enter terminal name"
                   required
+                  name="terminalName"
+                  value="<?php echo $row["terminalName"]; ?>"
                 />
                 <div class="invalid-feedback">
                   Please fill the terminal name field
@@ -176,24 +223,42 @@
                   class="form-control"
                   placeholder="Enter address"
                   required
+                  name="address"
+                  value="<?php echo $row["address"]; ?>"
                 />
                 <div class="invalid-feedback">
                   Please fill the address field
                 </div>
               </div>
+              
 
               <div
                 class="btn-toolbar justify-content-between"
                 role="toolbar"
                 aria-label="Toolbar with button groups"
               >
+              <div class="input-group">
+                <input
+                  type="submit"
+                  class="btn btn-info"
+                  name="update"
+                  value="Update"
+
+                />
+              </div>
+              
                 <div class="btn-group" role="group" aria-label="First group">
                   <!-- <a href="#" class="btn btn-light disabled">Back</a> -->
                 </div>
+                
                 <div class="input-group">
-                  <button type="submit" class="btn btn-primary px-5">
-                    Submit
-                  </button>
+                  <input
+                  type="submit"
+                  class="btn btn-primary px-5"
+                  name="add"
+                  value="Submit"
+
+                />
                 </div>
               </div>
             </div>
@@ -213,7 +278,32 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                <?php
+              $sql = "SELECT * FROM `location`";
+              $result = mysqli_query($conn,$sql);
+              $count = 1;
+              while($row = mysqli_fetch_assoc($result)){
+                ?>
+                <tr>
+                    <th scope="row"><?php  echo $count; ?></th>
+                    <td><?php echo $row["terminalName"]; ?></td>
+                    <td><?php echo $row["address"]; ?></td>
+                    <td>
+                      <a href="./systemconfig.php?editbus=<?php echo $row['id'];?>" class="btn btn-sm btn-outline-primary">
+                        Edit
+                      </a>
+                      <a href="helper/locationManage.php?delete=<?php echo $row['id'];?>" class="btn btn-sm btn-outline-danger">
+                        Delete
+                      </a>
+                    </td>
+                  </tr>
+              <?php 
+              $count++;             
+                
+              }
+              ?>
+                  
+                  <!-- <tr>
                     <th scope="row">1</th>
                     <td>CASS</td>
                     <td>Sabon Tasha Branch</td>
@@ -225,7 +315,7 @@
                         Delete
                       </a>
                     </td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
             </div>

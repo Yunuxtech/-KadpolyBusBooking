@@ -1,3 +1,6 @@
+<?php include("helper/login.php");
+error_reporting(0);
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -23,62 +26,7 @@
 
   <body class="d-flex flex-column min-vh-100 bg-light">
     <!-- Nav-->
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark text-white">
-      <div class="container">
-        <h1 class="mb-0 h5 py-1 mr-3">
-          <a class="navbar-brand" href="index.html">
-            <img
-              src="img/logo.jpg"
-              width="30"
-              height="30"
-              class="d-inline-block align-top"
-              alt=""
-            />
-            BusBookingSys</a
-          >
-        </h1>
-        <a
-          href="register.html"
-          class="btn btn-outline-light py-1 ml-auto mx-sm-0 order-0 order-sm-last"
-        >
-          Register Now
-        </a>
-        <button
-          class="navbar-toggler ml-3"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="profile.html">My Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="systemconfig.html"> System Config </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="reserveSeat.html">Reserve a Seat</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="bookedSeat.html">Booked History </a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" href="contact.html">Contact Us</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
+    <?php  require_once("include/header.php"); ?>
     <!-- content -->
     <div class="container flex-grow-1 flex-shrink-0 py-5">
       <div class="mb-5 p-4 bg-white shadow-sm">

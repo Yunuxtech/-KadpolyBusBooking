@@ -1,8 +1,14 @@
+<?php 
+include("helper/login.php");
+include("./helper/checklogin.php");
+check_login();
+error_reporting(0);
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Register | Bus Booking System</title>
+    <title>Profile | Bus Booking System</title>
     <meta
       name="description"
       content="Association of Point of Sales Users Membership Registation"
@@ -23,69 +29,29 @@
 
   <body class="d-flex flex-column min-vh-100 bg-light">
     <!-- Nav-->
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark text-white">
-      <div class="container">
-        <h1 class="mb-0 h5 py-1 mr-3">
-          <a class="navbar-brand" href="index.html">
-            <img
-              src="img/logo.jpg"
-              width="30"
-              height="30"
-              class="d-inline-block align-top"
-              alt=""
-            />
-            BusBookingSys</a
-          >
-        </h1>
-        <a
-          href="register.html"
-          class="btn btn-outline-light py-1 ml-auto mx-sm-0 order-0 order-sm-last active"
-        >
-          Register Now
-        </a>
-        <button
-          class="navbar-toggler ml-3"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="profile.html">My Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="systemconfig.html"> System Config </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="reserveSeat.html">Reserve a Seat</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="bookedSeat.html">Booked History </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="contact.html">Contact Us</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <?php  require_once("include/header.php"); ?>
 
     <!-- content -->
     <div class="container flex-grow-1 flex-shrink-0 py-5">
+    <?php
+        session_start();
+           if(isset($_SESSION["msg"])){
+             echo $_SESSION["msg"];
+           }
+           unset($_SESSION["msg"]);
+
+          ?>
       <div class="mb-5 p-4 bg-white shadow-sm">
-        <p>Already have an account? <a href="login.html">Sign in</a></p>
-        <hr />
-        <h3>Create an account</h3>
-        <form class="needs-validation m-4" novalidate>
+        <h3>Profile Infomation</h3>
+        <?php
+        $id = $_SESSION["login"];
+        $sql = "SELECT * FROM `users` WHERE id = '$id'";
+        $result = mysqli_query($conn,$sql);
+        $row = mysqli_fetch_assoc($result);
+
+
+        ?>
+        <form class="needs-validation m-4" novalidate action="./helper/update.php" method="post">
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputMailForm"
@@ -93,11 +59,12 @@
                 <span class="text-danger font-weight-bold">*</span></label
               >
               <input
-                id="inputMailForm"
                 type="text"
                 class="form-control"
                 placeholder="Enter your full name"
                 required
+                readonly
+                value="<?php echo $row["FullName"]; ?>"
               />
               <div class="invalid-feedback">
                 Please fill the full name field
@@ -106,15 +73,16 @@
 
             <div class="form-group col-md-6">
               <label for="inputMailForm"
-                >Registation number
+                >Registation No
                 <span class="text-danger font-weight-bold">*</span></label
               >
               <input
-                id="inputMailForm"
                 type="text"
                 class="form-control"
                 placeholder="Enter your registation number"
                 required
+                readonly
+                value="<?php echo $row["reg.No"]; ?>"
               />
               <div class="invalid-feedback">
                 Please fill the registation number field
@@ -127,67 +95,106 @@
                 <span class="text-danger font-weight-bold">*</span></label
               >
               <input
-                id="inputMailForm"
                 type="email"
                 class="form-control"
-                placeholder="Enter email address"
+                placeholder="Enter your email address"
                 required
+                name="email"
+                value="<?php echo $row["email"]; ?>"
               />
               <div class="invalid-feedback">
                 Please fill the email address field
               </div>
             </div>
+
             <div class="form-group col-md-6">
               <label for="inputMailForm"
                 >Phone number
                 <span class="text-danger font-weight-bold">*</span></label
               >
               <input
-                id="inputMailForm"
                 type="text"
                 class="form-control"
-                placeholder="Enter phone number"
-                maxlength="11"
+                placeholder="Enter your phone number"
                 required
+                name="phone"
+                value="<?php echo $row["phone"]; ?>"
               />
               <div class="invalid-feedback">
                 Please fill the phone number field
               </div>
             </div>
+          </div>
 
+          <div
+            class="btn-toolbar justify-content-between"
+            role="toolbar"
+            aria-label="Toolbar with button groups"
+          >
+            <div class="btn-group" role="group" aria-label="First group">
+              <!-- <a href="#" class="btn btn-light disabled">Back</a> -->
+            </div>
+            <div class="input-group">
+              <button type="submit" class="btn btn-primary">
+                Update Profile
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <hr />
+
+        <form class="needs-validation m-4" novalidate action="./helper/changePassword.php" method="post">
+          <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="inputPasswordForm"
-                >Choose Password
+              <label for="inputMailForm"
+                >Curent password
                 <span class="text-danger font-weight-bold">*</span></label
               >
               <input
-                id="inputPasswordForm"
                 type="password"
                 class="form-control"
-                placeholder="Password"
+                placeholder="Enter your current password"
                 required
+                name="oldPass"
               />
-              <div class="invalid-feedback">Please fill the password field</div>
+              <div class="invalid-feedback">
+                Please fill the current password field
+              </div>
             </div>
 
             <div class="form-group col-md-6">
               <label for="inputMailForm"
-                >Confirm Password
+                >New password
                 <span class="text-danger font-weight-bold">*</span></label
               >
               <input
-                id="inputMailForm"
                 type="password"
                 class="form-control"
-                placeholder="Enter firstname"
+                placeholder="Enter your new password"
                 required
+                name="newPass"
               />
               <div class="invalid-feedback">
-                Please fill the cofirm password field
+                Please fill the new password field
               </div>
             </div>
           </div>
-          <button class="btn btn-primary" type="submit">Sign up</button>
+
+          <div
+            class="btn-toolbar justify-content-between"
+            role="toolbar"
+            aria-label="Toolbar with button groups"
+          >
+            <div class="btn-group" role="group" aria-label="First group">
+              <!-- <a href="#" class="btn btn-light disabled">Back</a> -->
+            </div>
+            <div class="input-group">
+              <button type="submit" class="btn btn-primary">
+                Update Password
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     </div>
