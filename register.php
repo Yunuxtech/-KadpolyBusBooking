@@ -139,7 +139,6 @@
                 class="form-control"
                 placeholder="Enter department"
                 name="department"
-                maxlength="11"
                 required
               />
               <div class="invalid-feedback">

@@ -39,7 +39,7 @@ error_reporting(0);
            unset($_SESSION["msg"]);
 
           ?>
-      <div class="mb-5 p-4 bg-white shadow-sm">
+      <!-- <div class="mb-5 p-4 bg-white shadow-sm">
         <h3>FAQs on booking</h3>
 
         <div class="card-body">
@@ -54,7 +54,9 @@ error_reporting(0);
             <li class="mb-3">jcdnjdncjdnjncnc</li>
           </ol>
         </div>
-      </div>
+      </div> -->
+
+      <?php  include_once("include/slider.php"); ?>
     </div>
 
     <!-- footer -->

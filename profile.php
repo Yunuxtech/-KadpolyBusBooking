@@ -91,6 +91,44 @@ error_reporting(0);
 
             <div class="form-group col-md-6">
               <label for="inputMailForm"
+                >Level
+                <span class="text-danger font-weight-bold">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter your level number"
+                required
+                readonly
+                value="<?php echo $row["level"]; ?>"
+              />
+              <div class="invalid-feedback">
+                Please fill the Level field
+              </div>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="inputMailForm"
+                >Department
+                <span class="text-danger font-weight-bold">*</span></label
+              >
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter your Department number"
+                required
+                readonly
+                value="<?php echo $row["department"]; ?>"
+              />
+              <div class="invalid-feedback">
+                Please fill the Department field
+              </div>
+            </div>
+
+
+
+            <div class="form-group col-md-6">
+              <label for="inputMailForm"
                 >Email address
                 <span class="text-danger font-weight-bold">*</span></label
               >

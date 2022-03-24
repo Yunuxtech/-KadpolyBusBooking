@@ -36,7 +36,7 @@ error_reporting(0);
         <h3>My Booking History</h3>
 
         <div class="card-body">
-          <ol>
+          <!-- <ol>
             <li class="mb-3">
               jnjsnjsnjcsxcnsnnsjnxns
               <ol type="a">
@@ -45,7 +45,43 @@ error_reporting(0);
               </ol>
             </li>
             <li class="mb-3">jcdnjdncjdnjncnc</li>
-          </ol>
+          </ol> -->
+          <table class="table caption-top">
+                <caption>
+                  List of Reservation
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">BookID</th>
+                    <th scope="col">From - To</th>
+                    <th scope="col">Day - Time</th>
+                    <th scope="col">Date</th>
+
+                  </tr>
+                </thead>
+
+                        <?php
+                          $id = $_SESSION["login"];
+                          $sql = "SELECT * FROM `schedule_list` WHERE userID = '$id'";
+                          $result = mysqli_query($conn,$sql);
+                          $count = 1;
+                          while($row = mysqli_fetch_assoc($result)){
+                            ?>
+                            <tr>
+                                <th scope="row"><?php  echo $count; ?></th>
+                                <td><?php echo $row["orderID"]; ?></td>
+                                <td><?php echo $row["location_from"]; ?> - <?php echo $row["location_to"]; ?></td>
+                                <td><?php echo $row["day"]; ?> - <?php echo $row["time"]; ?></td>
+                                <td><?php echo $row["oderDate"]; ?></td>
+                              </tr>
+                          <?php 
+                          $count++;             
+                            
+                          }
+                      ?>
+                <tbody>
+          </table>
         </div>
       </div>
     </div>

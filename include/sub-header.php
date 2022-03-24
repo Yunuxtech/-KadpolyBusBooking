@@ -27,3 +27,7 @@ if($row["status"] == 1){
 <li class="nav-item">
     <a class="nav-link" href="logout.php">Logout</a>
 </li>
+  
+<li class="nav-item">
+    <a class="nav-link" href="contact.php">Contact Us</a>
+</li>
