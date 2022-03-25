@@ -62,18 +62,27 @@ error_reporting(0);
                 </thead>
 
                         <?php
-                          $id = $_SESSION["login"];
-                          $sql = "SELECT * FROM `schedule_list` WHERE userID = '$id'";
-                          $result = mysqli_query($conn,$sql);
-                          $count = 1;
-                          while($row = mysqli_fetch_assoc($result)){
+                        // checking for admin or student
+                        $sql = "SELECT * FROM `users` WHERE id = '$id'";
+                        $result = mysqli_query($conn,$sql);
+                        $row = mysqli_fetch_assoc($result);
+                        $res;
+                        if($row["status"] == 1){
+                          $sq = "SELECT * FROM `schedule_list`";
+                          $res = mysqli_query($conn,$sq);
+                        }else{
+                          $sq = "SELECT * FROM `schedule_list` WHERE userID = '$id'";
+                          $res = mysqli_query($conn,$sq);
+                        }
+                        $count = 1;
+                        while($details = mysqli_fetch_assoc($res)){
                             ?>
                             <tr>
                                 <th scope="row"><?php  echo $count; ?></th>
-                                <td><?php echo $row["orderID"]; ?></td>
-                                <td><?php echo $row["location_from"]; ?> - <?php echo $row["location_to"]; ?></td>
-                                <td><?php echo $row["day"]; ?> - <?php echo $row["time"]; ?></td>
-                                <td><?php echo $row["oderDate"]; ?></td>
+                                <td><?php echo $details["orderID"]; ?></td>
+                                <td><?php echo $details["location_from"]; ?> - <?php echo $details["location_to"]; ?></td>
+                                <td><?php echo $details["day"]; ?> - <?php echo $details["time"]; ?></td>
+                                <td><?php echo $details["oderDate"]; ?></td>
                               </tr>
                           <?php 
                           $count++;             
