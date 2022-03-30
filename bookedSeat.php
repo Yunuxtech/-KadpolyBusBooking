@@ -33,7 +33,7 @@ error_reporting(0);
     <!-- content -->
     <div class="container flex-grow-1 flex-shrink-0 py-5">
       <div class="mb-5 p-4 bg-white shadow-sm">
-        <h3>My Booking History</h3>
+        <h3>My Booking History </h3>
 
         <div class="card-body">
           <!-- <ol>
@@ -57,6 +57,7 @@ error_reporting(0);
                     <th scope="col">From - To</th>
                     <th scope="col">Day - Time</th>
                     <th scope="col">Date</th>
+                    <th scope="col">Receipt</th>
 
                   </tr>
                 </thead>
@@ -83,6 +84,9 @@ error_reporting(0);
                                 <td><?php echo $details["location_from"]; ?> - <?php echo $details["location_to"]; ?></td>
                                 <td><?php echo $details["day"]; ?> - <?php echo $details["time"]; ?></td>
                                 <td><?php echo $details["oderDate"]; ?></td>
+                                <td> <a href="receipt.php?receipt=<?php  echo $details["id"]; ?>"><i class="fa fa-print" title= "View receipt" style="color:#243c64;"></i></a></td>
+
+
                               </tr>
                           <?php 
                           $count++;             

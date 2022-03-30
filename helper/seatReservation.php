@@ -36,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $sql = mysqli_query($conn,"UPDATE `bus` SET busAvailableSpace = busAvailableSpace + 1 WHERE busName = '$bus' ");
                 $_SESSION["msg"] = '<div class= "alert alert-success">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Seat Reserve Successful</strong>
+                <strong>Seat Reserve Successful</strong> <a href="bookedSeat.php">Receipt</a>
             </div>';
                 header("location:../reserveSeat.php");
             }else{
@@ -60,9 +60,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 // getting the availabe seats usin ajax
 
-if(!empty($_POST["availableSeat"])){
-    $id = $_POST["availableSeat"];
-    $sql=mysqli_query($con,"SELECT * FROM `bus` WHERE busName = '$id'");
+if(!empty($_POST["seat"])){
+    $seat = $_POST["seat"];
+    $sql=mysqli_query($conn,"SELECT * FROM `bus` WHERE busName = '$seat'");
     while($row=mysqli_fetch_array($sql))
     {
         ?>

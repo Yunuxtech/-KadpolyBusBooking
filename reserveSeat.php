@@ -24,12 +24,15 @@ error_reporting(0);
       integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" 
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+     crossorigin="anonymous"/>
     <script>
 
         function availableSeat(val) {
           $.ajax({
           type: "POST",
-          url: "testing.php",
+          url: "./helper/seatReservation.php",
           data:'seat='+val,
           success: function(data){
             $("#availableSeat").html(data);
@@ -158,7 +161,7 @@ error_reporting(0);
                   >Bus
                   <span class="text-danger font-weight-bold">*</span></label
                 >
-                <select class="custom-select" required name="bus">
+                <select class="custom-select"  name="bus" onChange="availableSeat(this.value);" required>
                 <option selected disabled>Bus</option>
                 <?php
                     $sql = "SELECT * FROM `bus`";
@@ -197,7 +200,7 @@ error_reporting(0);
 
             
           </div>
-          <!-- <hr />
+          <hr />
           <h3>Card Details</h3>
           <div class="form-row">
               <div class="form-group col-md-6">
@@ -210,8 +213,7 @@ error_reporting(0);
                     class="form-control"
                     placeholder="1234 5678 1234 5678"
                     required
-                    max="14"
-                    min="14"
+                    
                   />
                   <div class="invalid-feedback">
                     Please fill card number field
@@ -250,7 +252,7 @@ error_reporting(0);
                   </div>
                 </div>
 
-          </div> -->
+          </div>
           <div
             class="btn-toolbar justify-content-between"
             role="toolbar"
