@@ -35,6 +35,14 @@ error_reporting(0);
 
     <!-- content -->
     <div class="container flex-grow-1 flex-shrink-0 py-5">
+    <?php
+        session_start();
+           if(isset($_SESSION["msg"])){
+             echo $_SESSION["msg"];
+           }
+           unset($_SESSION["msg"]);
+
+          ?>
       <div class="mb-5 p-4 bg-white shadow-sm">
       
             <h3>Receipt Details</h3>
@@ -70,9 +78,20 @@ error_reporting(0);
                     <?php
 
                     $id = $_GET["receipt"];
-                    $sql = "SELECT * FROM `schedule_list` WHERE id = '$id'";
-                    $result = mysqli_query($conn,$sql);
-                    $row = mysqli_fetch_assoc($result);
+                    $row;
+                    
+                    if($id){
+                        $sql = "SELECT * FROM `schedule_list` WHERE id = '$id'";
+                        $result = mysqli_query($conn,$sql);
+                        $row = mysqli_fetch_assoc($result);
+                    }else{
+                        $id = $_SESSION["login"];
+
+                        $sql = "SELECT * FROM `schedule_list` WHERE userID = '$id' ORDER BY id DESC LIMIT 1";
+                        $result = mysqli_query($conn,$sql);
+                        $row = mysqli_fetch_assoc($result);
+
+                    }
 
 
                     ?>

@@ -36,9 +36,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $sql = mysqli_query($conn,"UPDATE `bus` SET busAvailableSpace = busAvailableSpace + 1 WHERE busName = '$bus' ");
                 $_SESSION["msg"] = '<div class= "alert alert-success">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                <strong>Seat Reserve Successful</strong> <a href="bookedSeat.php">Receipt</a>
+                <strong>Seat Reserve Successful</strong> Print Receipt
             </div>';
-                header("location:../reserveSeat.php");
+                header("location:../receipt.php");
             }else{
                 $_SESSION["msg"] = '<div class= "alert alert-danger">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
