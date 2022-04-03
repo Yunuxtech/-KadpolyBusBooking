@@ -1,7 +1,9 @@
-<?php include("helper/login.php");
+<?php 
+include("helper/login.php");
 include("helper/checklogin.php");
 check_login();
 error_reporting(0);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,19 +29,6 @@ error_reporting(0);
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" 
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
      crossorigin="anonymous"/>
-    <script>
-
-        function availableSeat(val) {
-          $.ajax({
-          type: "POST",
-          url: "./helper/seatReservation.php",
-          data:'seat='+val,
-          success: function(data){
-            $("#availableSeat").html(data);
-          }
-          });
-        }
-    </script>
   </head>
 
   <body class="d-flex flex-column min-vh-100 bg-light">
@@ -88,7 +77,7 @@ error_reporting(0);
                   <span class="input-group-text">from</span>
                 </div>
 
-                <select class="custom-select" id="inputGroupSelect04" required name="from">
+                <select class="custom-select" id="from" required name="from">
                     <option selected disabled>Location</option>
                     <?php
                     $sql = "SELECT * FROM `location`";
@@ -104,7 +93,7 @@ error_reporting(0);
                   <span class="input-group-text">to</span>
                 </div>
 
-                <select class="custom-select" id="inputGroupSelect04" required name="to">
+                <select class="custom-select" id="to" required name="to">
                     <option selected disabled>Location</option>
                     <?php
                     $sql = "SELECT * FROM `location`";
@@ -127,7 +116,7 @@ error_reporting(0);
                 >Day 
                 <span class="text-danger font-weight-bold">*</span></label
               >
-              <select class="custom-select" id="inputGroupSelect04" required name="day">
+              <select class="custom-select" id="day" required name="day">
                 <option selected disabled>Day</option>
                 <option value="Mon">Monday</option>
                 <option value="Tues">Tuesday </option>
@@ -145,7 +134,7 @@ error_reporting(0);
                   >Time
                   <span class="text-danger font-weight-bold">*</span></label
                 >
-                <select class="custom-select" id="inputGroupSelect04" required name="time">
+                <select class="custom-select" id="time" required name="time">
                   <option selected disabled>Time</option>
                   <option value="7:00 am">7:00 am</option>
                   <option value="1:30 pm">1:30 pm</option>
@@ -161,17 +150,17 @@ error_reporting(0);
                   >Bus
                   <span class="text-danger font-weight-bold">*</span></label
                 >
-                <select class="custom-select"  name="bus" onChange="availableSeat(this.value);" required>
-                <option selected disabled>Bus</option>
-                <?php
-                    $sql = "SELECT * FROM `bus`";
-                    $result = mysqli_query($conn,$sql);
-                    while ($row = mysqli_fetch_assoc($result)) {
-                      ?>
-                        <option value="<?php echo $row["busName"]; ?>"><?php echo $row["busName"]; ?></option>
-                      <?php
-                    }
-                      ?>
+                <select class="custom-select"  name="bus"  id="busName" required>
+                    <option selected disabled>Bus</option>
+                    <?php
+                        $sql = "SELECT * FROM `bus`";
+                        $result = mysqli_query($conn,$sql);
+                        while ($row = mysqli_fetch_assoc($result)) {
+                          ?>
+                            <option value ="<?php echo $row["busName"]; ?>"><?php echo $row["busName"]; ?></option>
+                          <?php
+                        }
+                        ?>
                   
                 </select>
                 <div class="invalid-feedback">
@@ -181,7 +170,7 @@ error_reporting(0);
 
 
             <div class="form-group col-md-6">
-                <label for="inputMailForm"
+                <label for="availableSeat"
                   >Available Seat
                   <!-- <span class="text-danger font-weight-bold">*</span> -->
                   </label
@@ -193,6 +182,7 @@ error_reporting(0);
                 value="0"
               /> -->
               <select name="availableSeat" class="form-control" id="availableSeat"  readonly>
+
               </select>
 
             </div>
@@ -287,8 +277,27 @@ error_reporting(0);
     </footer>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="js/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/custom.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+            $(document).ready(function(){
+          $("#busName").change(function(){
+            var id = $("#busName").val();
+            $.ajax({
+              url:'getSeat.php',
+              method:'post',
+              data:'id='+id,
+            }).done(function(seat){
+              console.log(seat);
+              seat =  JSON.parse(seat);
+              $("#availableSeat").empty();
+              $("#availableSeat").append('<option>' + (seat.busCap - seat.busAvailableSpace) + '</option>')
+            })
+          })
+        })
+    </script>
   </body>
 </html>

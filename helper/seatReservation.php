@@ -60,15 +60,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 // getting the availabe seats usin ajax
 
-if(!empty($_POST["seat"])){
-    $seat = $_POST["seat"];
-    $sql=mysqli_query($conn,"SELECT * FROM `bus` WHERE busName = '$seat'");
-    while($row=mysqli_fetch_array($sql))
-    {
-        ?>
-        <option><?php echo htmlentities($row['busAvailableSpace']); ?></option>
-        <?php
-        }
+// if(isset($_POST["id"])){
+//     $id = $_POST["id"];
+//     $sql= "SELECT * FROM `bus` WHERE busName = '$id'";
+//     $result = mysqli_query($conn,$sql);
 
-}
+//     echo json_encode(mysqli_fetch_assoc($result));
+// }
 
+?>

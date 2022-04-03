@@ -10,7 +10,7 @@ if(isset($_POST["add"])){
     $busName = validate_input($_POST["busName"]);
     $busCap = validate_input($_POST["busCap"]);
 
-    $sql = "INSERT INTO `bus`(`busName`, `busCap`,`busAvailableSpace`) VALUES ('$busName','$busCap','$busCap')";
+    $sql = "INSERT INTO `bus`(`busName`, `busCap`,`busAvailableSpace`) VALUES ('$busName','$busCap','0')";
     $result = mysqli_query($conn,$sql);
 
     if($result){
@@ -68,7 +68,7 @@ if(isset($_POST["update"])){
 
     }else{
 
-        $sql = "UPDATE bus SET busName= '$busName', busCap ='$busCap',busAvailableSpace ='$busCap' WHERE id = '$id'";
+        $sql = "UPDATE bus SET busName= '$busName', busCap ='$busCap',busAvailableSpace ='0' WHERE id = '$id'";
         $result= mysqli_query($conn,$sql);
         if($result){
 
